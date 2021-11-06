@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"io/ioutil"
+	"os"
+	"strings"
+)
 
 // Create a new type of 'deck'
 // which is a slice of strings
@@ -23,7 +28,7 @@ func newDeck() deck {
 	return cards
 }
 
-// the (d deck) part ensures that this function can only be called by variables of the deck type
+// the (d deck) part is a receiver that ensures that this function can only be called by variables of the deck type
 // the variable d is called so, as it's convention to use a abbrivation of the type used in the function
 
 func (d deck) print() {
@@ -34,4 +39,21 @@ func (d deck) print() {
 
 func deal(d deck, handSize int) (deck, deck) {
 	return d[:handSize], d[handSize:]
+}
+
+func (d deck) toString() string {
+	return strings.Join([]string(d), ",")
+}
+
+func (d deck) saveToFile(filename string) error {
+	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
+}
+
+func newDeckFromFile(filename string) deck {
+	bysli, err := ioutil.ReadFile(filename)
+
+	if err != nil {
+		fmt.Println("Error:", err)
+		os.Exit(1)
+	}
 }
