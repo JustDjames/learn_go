@@ -52,6 +52,8 @@ func (d deck) saveToFile(filename string) error {
 	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
 }
 
+//gets slice of bytes from file, converts it to a string, converts that to a slice of strings and then converts that to the deck type and returns the deck
+// if file doesn't exist, prints error and exits
 func newDeckFromFile(filename string) deck {
 	bysli, err := ioutil.ReadFile(filename)
 
@@ -59,4 +61,8 @@ func newDeckFromFile(filename string) deck {
 		fmt.Println("Error:", err)
 		os.Exit(1)
 	}
+
+	s := strings.Split(string(bysli), ",")
+
+	return deck(s)
 }
