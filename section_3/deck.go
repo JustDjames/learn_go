@@ -3,8 +3,10 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"os"
 	"strings"
+	"time"
 )
 
 // Create a new type of 'deck'
@@ -52,7 +54,7 @@ func (d deck) saveToFile(filename string) error {
 	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
 }
 
-//gets slice of bytes from file, converts it to a string, converts that to a slice of strings and then converts that to the deck type and returns the deck
+// gets slice of bytes from file, converts it to a string, converts that to a slice of strings and then converts that to the deck type and returns the deck
 // if file doesn't exist, prints error and exits
 func newDeckFromFile(filename string) deck {
 	bysli, err := ioutil.ReadFile(filename)
@@ -65,4 +67,16 @@ func newDeckFromFile(filename string) deck {
 	s := strings.Split(string(bysli), ",")
 
 	return deck(s)
+}
+
+// creates a seed using the current unix time in nanoseconds and uses that to randomly swap a element with the current element in the loop
+func (d deck) shuffle() {
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+
+	for i := range d {
+		newPosition := r.Intn(len(d) - 1)
+		// takes the value at d[newPosition] and assigns it to d[i] and vice versa
+		d[i], d[newPosition] = d[newPosition], d[i]
+	}
 }
