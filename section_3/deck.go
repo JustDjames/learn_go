@@ -37,14 +37,17 @@ func (d deck) print() {
 	}
 }
 
+// first return gets the first values in the slice up tp the handsize var. second gets the values starting from the handsize var to the end
 func deal(d deck, handSize int) (deck, deck) {
 	return d[:handSize], d[handSize:]
 }
 
+// turns the deck type back into a slice of strings and then turns the slice into a single string joined by using a ','
 func (d deck) toString() string {
 	return strings.Join([]string(d), ",")
 }
 
+// saves the string to a file. to do this it first needs to convert the string to a slice of bytes
 func (d deck) saveToFile(filename string) error {
 	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
 }
