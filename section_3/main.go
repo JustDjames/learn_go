@@ -4,10 +4,10 @@ import "fmt"
 
 func main() {
 	cards := newDeck()
-	fmt.Println("Before:\n")
+	fmt.Println("Before:")
 	cards.print()
-	fmt.Println("\n")
+	fmt.Println("")
 	cards.shuffle()
-	fmt.Println("After:\n")
+	fmt.Println("After:")
 	cards.print()
 }
