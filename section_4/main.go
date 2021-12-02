@@ -29,7 +29,7 @@ func main() {
 		},
 	}
 
-	//bobPointer gets the person bob variable from memory. if we didn't do this, the actual bob variable wouldn't get updated. instead a copy of the bob variable that Go makes when using calling a methos on a variable would get updated
+	// bobPointer gets the person bob variable from memory. if we didn't do this, the actual bob variable wouldn't get updated. instead a copy of the bob variable that Go makes when using calling a function on a variable would get updated
 	// The &bob gets the memory address of the value the variable is pointing at
 	// for example: the value of the bob variable is at address 0001 in memory. bob points to the value of the bob variable. bobPointer points to the address 0001 in memory
 	// pretty much: turn value into address with &value
@@ -38,7 +38,8 @@ func main() {
 	bob.print()
 }
 
-// *person (or any *<Data Type>) is a  type description. It menas we are working with a pointer to a person (or a point to whatever data type)
+// *person (or any *<Data Type>) is a  type description. It means we are working with a pointer to a person (or a pointer to whatever data type)
+// setting up the function this way means that we don't have to get the pointer as we did on line 36. we could just use bob.updateName("Dan")
 func (pointerToPerson *person) updateName(newFirstName string) {
 	// the *pointerToPerson  gets the value the memory address is pointing at
 	// for example: if bobPointer contains the address in memory of the bob variable, *pointerToPerson will contain the value at that memory address
